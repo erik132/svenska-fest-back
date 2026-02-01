@@ -41,9 +41,12 @@ public class UserService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setActive(1);
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEstonianIdCode(request.getEstonianIdCode());
 
-        Role standardRole = roleRepository.findByRole("STANDARD")
-                .orElseThrow(() -> new RuntimeException("Standard role not found"));
+        Role standardRole = roleRepository.findByRole("ADMIN")
+                .orElseThrow(() -> new RuntimeException("Admin role not found"));
 
         Set<Role> roles = new HashSet<>();
         roles.add(standardRole);

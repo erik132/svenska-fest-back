@@ -1,5 +1,6 @@
 package erik.soekov.svenska_fest_back.entity;
 
+import erik.soekov.svenska_fest_back.dto.CreateUserRequest;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -26,6 +27,15 @@ public class User {
     @Column(name = "active", nullable = false)
     private Integer active;
 
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column(name = "estonian_id_code", nullable = false)
+    private String estonianIdCode;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_roles",
@@ -37,11 +47,14 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, String firstName, String lastName, String estonianIdCode) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.active = 1;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.estonianIdCode = estonianIdCode;
     }
 
     public Integer getId() {
@@ -90,5 +103,29 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEstonianIdCode() {
+        return estonianIdCode;
+    }
+
+    public void setEstonianIdCode(String estonianIdCode) {
+        this.estonianIdCode = estonianIdCode;
     }
 }
