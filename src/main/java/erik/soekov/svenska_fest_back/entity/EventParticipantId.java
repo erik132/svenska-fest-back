@@ -9,19 +9,24 @@ import java.io.Serializable;
 public class EventParticipantId implements Serializable {
 
     @Column(name = "event_id")
-    private Integer EventId;
+    private Integer eventId;
     @Column(name = "id")
     private String id;
 
     public EventParticipantId() {
     }
 
+    public EventParticipantId(Integer eventId, String id) {
+        this.eventId = eventId;
+        this.id = id;
+    }
+
     public Integer getEventId() {
-        return EventId;
+        return eventId;
     }
 
     public void setEventId(Integer eventId) {
-        EventId = eventId;
+        this.eventId = eventId;
     }
 
     public String getId() {

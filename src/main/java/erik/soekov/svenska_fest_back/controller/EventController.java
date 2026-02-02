@@ -49,9 +49,7 @@ public class EventController {
             request.verifyFields();
             eventService.createEvent(request);
             return ResponseEntity.ok("Event created successfully");
-        } catch (RequestVerificationException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (EventCreationException e) {
+        } catch (RequestVerificationException | EventCreationException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException re) {
             return ResponseEntity.internalServerError().body("Unknown error happened");
