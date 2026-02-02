@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/events")
+@CrossOrigin(origins = "http//localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST}, allowCredentials = "true")
 public class EventController {
 
     @Autowired
