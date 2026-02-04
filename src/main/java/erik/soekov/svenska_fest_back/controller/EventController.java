@@ -2,12 +2,13 @@ package erik.soekov.svenska_fest_back.controller;
 
 import erik.soekov.svenska_fest_back.dto.CreateEventRequest;
 import erik.soekov.svenska_fest_back.dto.RequestVerificationException;
-import erik.soekov.svenska_fest_back.service.EventCreationException;
-import erik.soekov.svenska_fest_back.service.EventNotFoundException;
-import erik.soekov.svenska_fest_back.service.EventService;
+import erik.soekov.svenska_fest_back.entity.User;
+import erik.soekov.svenska_fest_back.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/get_event")
     public ResponseEntity getEvent(@RequestParam("event_id") Integer eventId) {
@@ -46,10 +50,14 @@ public class EventController {
     @PostMapping("/create_event")
     public ResponseEntity createEvent(@RequestBody CreateEventRequest request) {
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();
+
+            User user = userService.getUser(username);
             request.verifyFields();
             eventService.createEvent(request);
             return ResponseEntity.ok("Event created successfully");
-        } catch (RequestVerificationException | EventCreationException e) {
+        } catch (RequestVerificationException | EventCreationException | UserNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException re) {
             return ResponseEntity.internalServerError().body("Unknown error happened");

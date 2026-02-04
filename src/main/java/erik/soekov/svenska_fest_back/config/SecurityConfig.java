@@ -52,7 +52,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable().cors(cors -> cors.disable()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/users/login", "/users/create_user", "/events/get_event", "/events/get_events", "/events/create_event", "/participants/register_participant").permitAll()
+                .requestMatchers("/users/login", "/events/get_event", "/events/get_events", "/participants/register_participant").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
