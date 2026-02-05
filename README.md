@@ -8,8 +8,8 @@ Using this project, the frontend project and the files in dockerItems make the f
 
 ```
 svenska-fest-docker:
-    svenska-fest-back (git clone git@github.com:erik132/svenska-fest-back.git) 
-    svenska_fest (git clone git@github.com:erik132/svenska-fest.git) 
+    svenska-fest-back (git clone https://github.com/erik132/svenska-fest-back.git) 
+    svenska-fest (git clone https://github.com/erik132/svenska-fest.git) 
     docker 
     Dockerfile 
     .dockerignore 

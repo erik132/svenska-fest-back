@@ -4,9 +4,9 @@
 FROM node:22-alpine AS frontend-build
 
 WORKDIR /app
-COPY svenska_fest/package*.json ./
+COPY svenska-fest/package*.json ./
 RUN npm install
-COPY svenska_fest/ ./
+COPY svenska-fest/ ./
 
 # Remove the hardcoded backend URL so that API calls become
 # relative requests (e.g. "/events/...") — nginx will proxy them
