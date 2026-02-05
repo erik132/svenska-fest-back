@@ -28,3 +28,16 @@ CREATE TABLE user_roles(
 
 INSERT INTO roles (id, role) VALUES (1,'ADMIN');
 INSERT INTO roles (id, role) VALUES (2,'STANDARD');
+
+INSERT INTO public.users
+(id, active, email, username, "password", first_name, last_name, estonian_id_code)
+VALUES(1, 1, 'nils@nils.com', 'Nils123', '$2a$10$MIO2CTBIaB43ycHmX1ECQOhp6Av07NvfZetQOQpe3OGR6LPbOEXT2', 'Nils', 'Okso', '12345678911');
+
+INSERT INTO public.users
+(id, active, email, username, "password", first_name, last_name, estonian_id_code)
+VALUES(2, 1, 'johan@johan.com', 'Johan123', '$2a$10$D.OiAbJDhLGiUq5HCq0rruMn8L0/IfWqmtYJbTOmWk2cu31tawdGW', 'Johan', 'Okso', '12345678922');
+
+INSERT INTO public.user_roles
+(user_id, role_id)
+VALUES(1, 1),
+(2,2);

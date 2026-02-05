@@ -1,7 +1,5 @@
 package erik.soekov.svenska_fest_back.dto;
 
-import jakarta.persistence.Column;
-
 import java.time.LocalDateTime;
 
 public class CreateEventRequest implements VerifiableRequest{

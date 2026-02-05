@@ -2,9 +2,13 @@ package erik.soekov.svenska_fest_back.service;
 
 import erik.soekov.svenska_fest_back.dto.CreateEventRequest;
 import erik.soekov.svenska_fest_back.dto.EventResponse;
+import erik.soekov.svenska_fest_back.dto.RegisterEventParticipantRequest;
 import erik.soekov.svenska_fest_back.dto.SimpleEventResponse;
 import erik.soekov.svenska_fest_back.entity.Event;
+import erik.soekov.svenska_fest_back.entity.EventParticipant;
+import erik.soekov.svenska_fest_back.entity.EventParticipantId;
 import erik.soekov.svenska_fest_back.entity.SimpleEvent;
+import erik.soekov.svenska_fest_back.repositories.EventParticipantRepository;
 import erik.soekov.svenska_fest_back.repositories.EventRepository;
 import erik.soekov.svenska_fest_back.repositories.SimpleEventRepository;
 import org.hibernate.exception.ConstraintViolationException;
@@ -23,9 +27,8 @@ public class EventService {
     @Autowired
     private SimpleEventRepository simpleEventRepository;
 
-    /*public EventService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
-    }*/
+    @Autowired
+    private EventParticipantRepository eventParticipantRepository;
 
     public List<SimpleEventResponse> getAvailableEvents() {
         List<SimpleEvent> simpleEvents = simpleEventRepository.findAll();
@@ -51,6 +54,28 @@ public class EventService {
                 String constraintName = cause.getConstraintName();
                 if (constraintName != null && constraintName.equals("events_name_key")) {
                     throw new EventCreationException("This name is taken. Please choose another.");
+                }
+            }
+            throw de;
+        }
+    }
+
+    public void registerEventParticipant(RegisterEventParticipantRequest request) throws ParticipantRegistrationException {
+        try {
+            SimpleEvent event = simpleEventRepository.findById(request.getEventId()).orElseThrow(() -> new ParticipantRegistrationException("Event not found."));
+            if(event.getParticipantsCount() >= event.getMaxParticipants()){
+                throw new ParticipantRegistrationException("Can not register. The event is full.");
+            }
+            EventParticipant participant = new EventParticipant();
+            participant.setFirstName(request.getFirstName());
+            participant.setLastName(request.getLastName());
+            participant.setId(new EventParticipantId(request.getEventId(), request.getEstonianIdCode()));
+            eventParticipantRepository.save(participant);
+        } catch (DataIntegrityViolationException de) {
+            if (de.getCause() instanceof ConstraintViolationException cause) {
+                String constraintName = cause.getConstraintName();
+                if (constraintName != null && constraintName.equals("event_participants_pkey")) {
+                    throw new ParticipantRegistrationException("You can not register to the same event twice.");
                 }
             }
             throw de;

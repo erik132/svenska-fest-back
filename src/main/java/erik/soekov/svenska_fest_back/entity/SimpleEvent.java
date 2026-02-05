@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Immutable
-@Table(name = "events")
+@Table(name = "simple_event_view")
 public class SimpleEvent {
 
     @Id
@@ -26,6 +26,9 @@ public class SimpleEvent {
 
     @Column(name = "max_participants", nullable = false)
     private Integer maxParticipants;
+
+    @Column(name = "participant_count", nullable = false)
+    private Integer participantsCount;
 
     public SimpleEvent() {
     }
@@ -68,5 +71,13 @@ public class SimpleEvent {
 
     public void setMaxParticipants(Integer maxParticipants) {
         this.maxParticipants = maxParticipants;
+    }
+
+    public Integer getParticipantsCount() {
+        return participantsCount;
+    }
+
+    public void setParticipantsCount(Integer participantsCount) {
+        this.participantsCount = participantsCount;
     }
 }

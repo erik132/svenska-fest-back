@@ -11,16 +11,18 @@ public class SimpleEventResponse {
     private String address;
     private LocalDateTime dateTime;
     private Integer maxParticipants;
+    private Integer participantsCount;
 
     public SimpleEventResponse() {
     }
 
-    public SimpleEventResponse(Integer id, String name, String address, LocalDateTime dateTime, Integer maxParticipants) {
+    public SimpleEventResponse(Integer id, String name, String address, LocalDateTime dateTime, Integer maxParticipants, Integer participantsCount) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.dateTime = dateTime;
         this.maxParticipants = maxParticipants;
+        this.participantsCount = participantsCount;
     }
 
     public SimpleEventResponse(SimpleEvent event) {
@@ -29,6 +31,7 @@ public class SimpleEventResponse {
         address = event.getAddress();
         dateTime = event.getDateTime();
         maxParticipants = event.getMaxParticipants();
+        participantsCount = event.getParticipantsCount();
     }
 
     public Integer getId() {
@@ -69,5 +72,13 @@ public class SimpleEventResponse {
 
     public void setMaxParticipants(Integer maxParticipants) {
         this.maxParticipants = maxParticipants;
+    }
+
+    public Integer getParticipantsCount() {
+        return participantsCount;
+    }
+
+    public void setParticipantsCount(Integer participantsCount) {
+        this.participantsCount = participantsCount;
     }
 }
