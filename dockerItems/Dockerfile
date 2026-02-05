@@ -49,7 +49,7 @@ COPY --from=backend-build /app/target/svenska-fest-back-*.jar /app/app.jar
 # --- Copy configuration files ---
 COPY docker/nginx.conf /etc/nginx/sites-available/default
 COPY docker/start.sh /start.sh
-RUN chmod +x /start.sh
+RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 
 # --- PostgreSQL environment (used by the postgres entrypoint) ---
 # POSTGRES_USER and POSTGRES_PASSWORD must be passed at runtime:
