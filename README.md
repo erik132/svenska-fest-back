@@ -25,3 +25,9 @@ In the final command you can specify the postgres database user and password and
 The app also contains 2 inbuilt accounts Nils123 and Johan123, where the first has the ADMIN role and the second has the STANDARD role. Passwords can be provided when asked.
 
 The container takes about 30 seconds to start up after which the webpage is accessible at localhost assuming you did not change the port configuration.
+
+If you wish the add additional information for the admin account then you could also add all the following as environment variables in the docker run command:
+ADMIN_EMAIL
+ADMIN_FIRST_NAME
+ADMIN_LAST_NAME
+ADMIN_ID_CODE
